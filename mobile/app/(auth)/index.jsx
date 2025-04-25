@@ -14,7 +14,10 @@ export default function Login() {
 
     const handleLogin = () => {
         // Logique de connexion à implémenter ici
-    }
+       // fetch("http://localhost:3000/api/auth/login", {
+       // })
+
+    };
 
     return (
     <KeyboardAvoidingView
@@ -105,7 +108,7 @@ export default function Login() {
 
                 {/* FOOTER */} 
                 <View style={styles.footer}>
-                    <Text style={styles.footerText}>Don't have a account?</Text>
+                    <Text style={styles.footerText}>Don't have an account?</Text>
                     <Link href="/signup" asChild>
                         <TouchableOpacity>
                             <Text style={styles.link}>Sign Up</Text>
