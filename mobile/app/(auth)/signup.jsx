@@ -1,11 +1,11 @@
-import { View, Text, Image, TouchableOpacity, Platform, KeyboardAvoidingView, TextInput, ActivityIndicator } from 'react-native';
+import { View, Text, TouchableOpacity, Platform, KeyboardAvoidingView, TextInput, ActivityIndicator, Alert } from 'react-native';
 import { Link } from "expo-router";
 import styles from "../../assets/styles/signup.styles";
-import { useState} from "react";
-import {Ionicons} from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import COLORS from "../../constants/colors";
-import {useRouter } from "expo-router";
-import {useAuthStore} from "../../store/authStore";
+import { useState } from "react";
+import { useRouter } from "expo-router";
+import { useAuthStore } from "../../store/authStore";
 
 
 export default function Signup() {
@@ -13,34 +13,20 @@ export default function Signup() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
-    // const [isLoading, setIsLoading] = useState(false);
 
-
-//     ✅ Optionnel : amélioration UX
-
-// Désactiver le bouton si un champ est vide, par sécurité :
-    // disabled={isLoading || !username || !email || !password}
-
-
-    const { user, isLoading, register } =  useAuthStore();
-
-    // console.log("user is here:", user);
+   const { user, isLoading, register, token } =  useAuthStore();
 
     const router = useRouter();
 
     const handleSignUp = async () => {
-        // Logique d'inscription à implémenter ici
-        // setUser({name: "bob"});
-
         const result = await register(username, email, password);
+      
+        if (!result.success) Alert.alert("Error", result.error);
+      };
+      
+      console.log(user);
+      console.log(token);
 
-        if (result.success) {
-            router.push("/home");
-          } else {
-            Alert.alert("Error", result.error);
-          }
-    
-        };
     return (
         <KeyboardAvoidingView
             style={{ flex:1 }}
@@ -71,7 +57,7 @@ export default function Signup() {
                                 placeholderTextColor={COLORS.placeholderText}
                                 value={username}
                                 onChangeText={setUsername}
-                                autoCaptitalize="none"
+                                autoCapitalize="none"
                             />
                             </View>
                         </View>
@@ -135,8 +121,9 @@ export default function Signup() {
                     </TouchableOpacity>
 
                 </View>
-            </View>  
+            </View>
 
+            {/* SIGNUP BUTTON */}
             <TouchableOpacity style={styles.button} onPress={handleSignUp}
             disabled={isLoading}>
                 {isLoading ? (

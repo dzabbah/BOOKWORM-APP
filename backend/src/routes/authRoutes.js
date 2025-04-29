@@ -11,7 +11,7 @@ const generateToken = (userId) => {
 
 router.post("/register", async (req, res) => {
     try {
-        const {email, username, password} = req.body;
+        const { email, username, password } = req.body;
         
         if (!username || !email || !password) {
             return res.status(400).json({message:"All fields are required!"});
@@ -29,12 +29,12 @@ router.post("/register", async (req, res) => {
         // const existingUser = await User.findOne({$or:[{email}, {username}]});
         // if(existingUser) return res.status(400).json({message:"User already exists!"});
 
-        const existingEmail = await User.findOne({email});
+        const existingEmail = await User.findOne({ email });
         if (existingEmail) {
-            return res.status(400).json({message:"Email already exists!"});
+            return res.status(400).json({ message:"Email already exists!" });
         }
 
-        const existingUsername = await User.findOne({username});
+        const existingUsername = await User.findOne({ username });
         if (existingUsername) {
             return res.status(400).json({message:"Username already exists!"});
         }
@@ -47,7 +47,7 @@ router.post("/register", async (req, res) => {
             username, 
             password,
             profileImage,
-        })
+        });
 
         await user.save();
 
@@ -59,8 +59,8 @@ router.post("/register", async (req, res) => {
                 id: user._id,
                 username: user.username,
                 email: user.email,
-                profileImage: user.profileImage
-            }
+                profileImage: user.profileImage,
+            },
         })
     } catch (error) {
         console.log("Error in register router", error);

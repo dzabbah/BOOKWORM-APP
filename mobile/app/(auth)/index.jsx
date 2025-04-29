@@ -1,9 +1,10 @@
 import { View, Text, Image, TextInput, TouchableOpacity, ActivityIndicator, KeyboardAvoidingView, Platform, ScrollView  } from 'react-native';
+import { Link } from "expo-router";
 import styles from "../../assets/styles/login.styles";
 import { useState } from "react";
 import {Ionicons} from "@expo/vector-icons";
 import COLORS from "../../constants/colors";
-import { Link } from "expo-router";
+
 
 
 export default function Login() {
