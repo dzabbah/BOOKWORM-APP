@@ -10,7 +10,7 @@ export const useAuthStore = create((set, get) => ({
 
         set({ isLoading: true});
         try {
-            const response= await fetch("http://localhost:3000/api/api/auth/register", {
+            const response= await fetch("https://bookworm-app-nlfh.onrender.com/api/auth/register", {
                method: "POST", 
                headers: {
                 "Content-Type": "application/json",
@@ -42,7 +42,7 @@ export const useAuthStore = create((set, get) => ({
            set({isLoading: true}); 
 
            try {
-             const response = await fetch("http://localhost:3000/api/auth/login", {
+             const response = await fetch("https://bookworm-app-nlfh.onrender.com/api/auth/login", {
                 method: "POST",
                 headers: {
                   "Content-Type":"application/json",
