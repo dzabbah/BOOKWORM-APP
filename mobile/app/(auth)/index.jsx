@@ -5,19 +5,19 @@ import { useState } from "react";
 import {Ionicons} from "@expo/vector-icons";
 import COLORS from "../../constants/colors";
 
-
+import { useAuthStore } from "../../store/authStore.js";
 
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
+    //const [isLoading, setIsLoading] = useState(false);
+    const { isLoading, login } = useAuthStore();
 
-    const handleLogin = () => {
-        // Logique de connexion à implémenter ici
-       // fetch("http://localhost:3000/api/auth/login", {
-       // })
+    const handleLogin = async () => {
+       const result = await login(email, password);
 
+       if (!result.success) Alert.alert("Error", result.error);
     };
 
     return (

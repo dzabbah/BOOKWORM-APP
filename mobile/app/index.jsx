@@ -1,15 +1,28 @@
 import { Link} from "expo-router";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { useAuthStore} from "../store/authStore.js";
 import { Image } from "expo-image";
+import { useEffect } from "react";
 
 export default function Index() {
+  const {user, token, checkAuth, logout } = useAuthStore();
+
+  console.log(user, token);
+
+  useEffect(() => {
+    checkAuth();
+  }, [])
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Book Worm!</Text>
-      <Image cachePolicy={"none"}/>
+      <Text style={styles.title}>Book Worm for You {user?.username}</Text>
+      <Text style={styles.title}>Token: {token} </Text>
 
-      <Link  href="/(auth)/signup">Sign Up Page</Link>
-      <Link  href="/(auth)">Login Page</Link>
+      <TouchableOpacity OnPress={logout}>
+          <Text>Logout</Text>
+      </TouchableOpacity>
+
+      <Link  href="/(auth)/signup">Sign Up</Link>
+      <Link  href="/(auth)">Login</Link>
     </View>
   );
 }
