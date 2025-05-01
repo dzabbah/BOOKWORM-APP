@@ -1,3 +1,6 @@
+CE FICHIER A ETE FAIT POUR LES TESTS. En effet, il se situait dans le chemin suivant:
+mobile>app>index.jsx
+
 import { Link} from "expo-router";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { useAuthStore} from "../store/authStore.js";
@@ -11,7 +14,8 @@ export default function Index() {
 
   useEffect(() => {
     checkAuth();
-  }, [])
+  }, []);
+  
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Book Worm for You {user?.username}</Text>

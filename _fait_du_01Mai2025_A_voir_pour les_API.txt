@@ -1,0 +1,31 @@
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { useAuthStore } from "../../store/authStore";
+import {} from "../../store/bookStore";
+
+
+
+http://localhost:3000/api/books
+
+https://bookworm-app-nlfh.onrender.com/api
+
+import { API_URL } from "../constants/api.js";
+
+https://bookworm-app-nlfh.onrender.com/api/auth/register
+
+
+`${API_URL}/api/auth/register`
+
+
+
+<TouchableOpacity onPress={logout}>
+                <Text>LogOut</Text>
+            </TouchableOpacity>
+
+
+API_URL="https://bookworm-app-nlfh.onrender.com/api";
+
+
+API_URL="http://localhost:3000/api"
+
+
+git commit -m "16- Auto Navigation & Tabs Setup - 17- Building Create Screen UI Design -  18- Completing Create Screen - 19- Building Home Screen"
