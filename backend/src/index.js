@@ -11,12 +11,16 @@ import {connectDB} from "./lib/db.js";
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-job.start();
-app.use(express.json());
+// Autoriser toutes les origines (pour développement uniquement)
 app.use(cors());
 
+// Ou mieux : autoriser explicitement localhost:8081
+// app.use(cors({ origin: "http://localhost:8081" }));
+job.start();
+app.use(express.json());
+
 app.use("/api/auth",authRoutes);
-app.use("/api/books",bookRoutes);
+app.post("/api/books",bookRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);

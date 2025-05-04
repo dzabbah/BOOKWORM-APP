@@ -32,7 +32,7 @@ export default function Create() {
     const router = useRouter();
     const { token } = useAuthStore();
 
-    console.log(token);
+    // console.log(token);
 
     const pickImage = async () => {
         try {
@@ -48,7 +48,7 @@ export default function Create() {
 
           // launch image library
           const result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ["images", "livePhotos", "videos"], // mediaTypes: "images" (cest image seulement mais moi jai tout choisi)
+            mediaTypes: ["images"], // mediaTypes: "images" (cest image seulement mais moi jai tout choisi) : , "livePhotos", "videos"
             allowsEditing: true,
             aspect: [4, 3],
             quality: 0.5, // 0.5 is lowze quality for smaller base64 representation
@@ -56,15 +56,16 @@ export default function Create() {
           });
 
           if(!result.canceled) {
+            const selectedImage = result.assets[0];
             setImage(result.assets[0].uri);
 
             // if base64 is provided, use it
 
-            if (result.assets[0].base64) {
-                setImageBase64(result.assets[0].base64);
+            if (selectedImage.base64) {
+                setImageBase64(selectedImage.base64);
             } else {
                 // otherwise, convert to base64
-                const base64 = await FileSystem.readAsStringAsync(result.assets[0].uri, {
+                const base64 = await FileSystem.readAsStringAsync(selectedImage.uri, {
                         encoding: FileSystem.EncodingType.Base64,
                     });
 
@@ -83,6 +84,11 @@ export default function Create() {
         return;
       }
 
+      if (rating < 1 || rating > 5 ) {
+        Alert.alert("Error", "Rating must be between 1 and 5");
+        return;
+      }
+
       try {
         setLoading(true);
         
@@ -91,9 +97,9 @@ export default function Create() {
         const fileType = uriParts[uriParts.length - 1];
         const imageType = fileType ? `image/${fileType.toLowerCase()}` : "image/jpeg";
 
-        const imageDataUrl = `data:${imageType}:base64,${imageBase64}`;
+        const imageDataUrl = `data:${imageType};base64,${imageBase64}`;
 
-        const response = await fetch(`${API_URL}/api/books`, {
+        const response = await fetch(`${API_URL}/books`, {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${token}`, 
@@ -146,7 +152,7 @@ export default function Create() {
           style={{flex:1}}
             behavior={Platform.OS === "ios" ? "padding" : "height"}  
         >
-            <ScrollView contentContainerStyle={styles.container} style={styles.scrollViewStyle}>
+            <ScrollView contentContainerStyle={styles.container} style={styles.scrollViewStyle} keyboardShouldPersistTaps="handled">
               <View style={styles.card}>
                 {/* HEADER COMPONENT */}
                  <View  style={styles.header}>
@@ -210,7 +216,7 @@ export default function Create() {
                 </View>
 
                 {/* SUBMIT COMPONENT*/}
-                <TouchableOpacity style={styles.button} onPress={handleSubmit} disabled={loading}>
+                <TouchableOpacity style={styles.button} onPress={handleSubmit} disabled={loading || !title || !caption || !imageBase64 || !rating}>
                     {loading ? (
                         <ActivityIndicator color={COLORS.white} />
                     ): (
@@ -226,13 +232,7 @@ export default function Create() {
                     ) }
                 </TouchableOpacity>
 
-
-
-
-
-
                 </View>
-
               </View>
             </ScrollView>
         </KeyboardAvoidingView>

@@ -88,7 +88,7 @@ router.delete("/:id", protectRoute, async (req, res) => {
       if (!book) return res.status(404).json({message: "Book not found!"});  
 
       // check if user is the creator of the book
-      if(!book.user.toString() !== req.user._id.toString()) 
+      if(book.user.toString() !== req.user._id.toString()) 
         return res.status(401).json({message: "Unauthorized"});
 
         // https://res.cloudinary.com/de1rm4uto/image/upload/v1741568358/qyup61vejflxxw8igvi0.png
@@ -111,6 +111,6 @@ router.delete("/:id", protectRoute, async (req, res) => {
         res.status(500).json({message: "Internal server error!"});
     }
 })
-// update a book
+ // update a book
 
 export default router;

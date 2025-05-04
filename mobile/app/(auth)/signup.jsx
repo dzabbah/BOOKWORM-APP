@@ -105,7 +105,7 @@ export default function Signup() {
                         onChangeText={setPassword}
                         secureTextEntry={!showPassword}
                         //keyboardType="email-address"
-                        //autoCapitalize="none"
+                        autoCapitalize="none"
                     />
                      {/* LEFT ICONS */}
                     <TouchableOpacity 

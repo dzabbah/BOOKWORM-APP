@@ -1,4 +1,4 @@
-import { View, Text, Image, TextInput, TouchableOpacity, ActivityIndicator, KeyboardAvoidingView, Platform, ScrollView  } from 'react-native';
+import { View, Text, Image, TextInput, TouchableOpacity, ActivityIndicator, KeyboardAvoidingView, Platform, ScrollView, Alert  } from 'react-native';
 import { Link } from "expo-router";
 import styles from "../../assets/styles/login.styles";
 import { useState } from "react";
@@ -79,8 +79,8 @@ export default function Login() {
                         value={password}
                         onChangeText={setPassword}
                         secureTextEntry={!showPassword}
-                        //keyboardType="email-address"
-                        //autoCapitalize="none"
+                        keyboardType="email-address"
+                        autoCapitalize="none"
                     />
                      {/* LEFT ICONS */}
                     <TouchableOpacity 
