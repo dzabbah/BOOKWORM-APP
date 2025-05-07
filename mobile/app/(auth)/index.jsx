@@ -1,4 +1,15 @@
-import { View, Text, Image, TextInput, TouchableOpacity, ActivityIndicator, KeyboardAvoidingView, Platform, ScrollView, Alert  } from 'react-native';
+import { 
+    View, 
+    Text, 
+    Image, 
+    TextInput, 
+    TouchableOpacity, 
+    ActivityIndicator, 
+    KeyboardAvoidingView, 
+    Platform, 
+    ScrollView, 
+    Alert  
+} from 'react-native';
 import { Link } from "expo-router";
 import styles from "../../assets/styles/login.styles";
 import { useState } from "react";
@@ -12,13 +23,15 @@ export default function Login() {
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     //const [isLoading, setIsLoading] = useState(false);
-    const { isLoading, login } = useAuthStore();
+    const { isLoading, login, isCheckingAuth } = useAuthStore();
 
     const handleLogin = async () => {
        const result = await login(email, password);
 
        if (!result.success) Alert.alert("Error", result.error);
     };
+
+    if(isCheckingAuth) return null;
 
     return (
     <KeyboardAvoidingView
